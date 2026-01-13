@@ -30,6 +30,12 @@ private slots:
 
     void on_pushButton_release_clicked();
 
+    void on_doubleSpinBox_posP_editingFinished();
+    void on_doubleSpinBox_posI_editingFinished();
+    void on_doubleSpinBox_posD_editingFinished();
+    void on_doubleSpinBox_currP_editingFinished();
+    void on_doubleSpinBox_currI_editingFinished();
+    void on_doubleSpinBox_currD_editingFinished();
 private:
     Ui::MainWindow *ui;
     COM* comGrip;

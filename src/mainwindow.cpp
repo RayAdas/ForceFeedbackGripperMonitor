@@ -51,6 +51,14 @@ void MainWindow::on_linkButton_feed_clicked()
     {
         //打开串口
         bool isSuccess = this->motorFeed->COM0->open(devName);
+        if (isSuccess){
+            on_doubleSpinBox_posP_editingFinished();
+            on_doubleSpinBox_posI_editingFinished();
+            on_doubleSpinBox_posD_editingFinished();
+            on_doubleSpinBox_currP_editingFinished();
+            on_doubleSpinBox_currI_editingFinished();
+            on_doubleSpinBox_currD_editingFinished();
+        }
     }
 }
 
@@ -78,11 +86,43 @@ void MainWindow::on_grip_com_readed(QString data){
         float angleB = parts[2].toFloat(&ok3);
 
         if (ok1 && ok2 && ok3) {
-            this->motorFeed->mMode(curr*-200);
+            this->motorFeed->mMode(curr*-1000);
         } else {
             qDebug() << "转换失败: 无法解析为浮点数";
         }
     } else {
         qDebug() << "数据格式错误: 需要至少3个逗号分隔的值";
     }
+}
+
+void MainWindow::on_doubleSpinBox_posP_editingFinished()
+{
+    float value = this->ui->doubleSpinBox_posP->value();
+    this->comGrip->write("posP:" + QString::number(value) + "\n");
+}
+
+void MainWindow::on_doubleSpinBox_posI_editingFinished()
+{
+    float value = this->ui->doubleSpinBox_posI->value();
+    this->comGrip->write("posI:" + QString::number(value) + "\n");
+}
+void MainWindow::on_doubleSpinBox_posD_editingFinished()
+{
+    float value = this->ui->doubleSpinBox_posD->value();
+    this->comGrip->write("posD:" + QString::number(value) + "\n");
+}
+void MainWindow::on_doubleSpinBox_currP_editingFinished()
+{
+    float value = this->ui->doubleSpinBox_currP->value();
+    this->comGrip->write("currP:" + QString::number(value) + "\n");
+}
+void MainWindow::on_doubleSpinBox_currI_editingFinished()
+{
+    float value = this->ui->doubleSpinBox_currI->value();
+    this->comGrip->write("currI:" + QString::number(value) + "\n");
+}
+void MainWindow::on_doubleSpinBox_currD_editingFinished()
+{
+    float value = this->ui->doubleSpinBox_currD->value();
+    this->comGrip->write("currD:" + QString::number(value) + "\n");
 }
